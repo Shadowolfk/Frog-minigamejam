@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cjubkhpw5kwww"]
+
+[ext_resource type="Script" uid="uid://cnnscjajs1mh6" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://c5v2rf80bbut4" path="res://tongue.gd" id="2_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://51qva45pel4n" path="res://icon.svg" id="3_i3pqv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hqtel"]
+radius = 20.0
+
+[node name="Player" type="CharacterBody2D" unique_id=461573234]
+script = ExtResource("1_onrkg")
+
+[node name="HitBox" type="CollisionShape2D" parent="." unique_id=278683381]
+shape = SubResource("CircleShape2D_hqtel")
+
+[node name="Tongue" type="Node2D" parent="." unique_id=586002316]
+script = ExtResource("2_i3pqv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1977169794]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_i3pqv")
