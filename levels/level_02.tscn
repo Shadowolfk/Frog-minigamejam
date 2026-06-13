@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c3d15x2uikbsj"]
+
+[ext_resource type="PackedScene" uid="uid://cjubkhpw5kwww" path="res://player.tscn" id="1_8yqd8"]
+[ext_resource type="PackedScene" uid="uid://bgm2odaw7y1k2" path="res://obstacle.tscn" id="2_h518d"]
+[ext_resource type="PackedScene" uid="uid://gwf7vi6kiyup" path="res://fly.tscn" id="3_didps"]
+
+[node name="Woirld" type="Node2D" unique_id=1491960833]
+
+[node name="Player" parent="." unique_id=461573234 instance=ExtResource("1_8yqd8")]
+position = Vector2(59, 288)
+
+[node name="Obstacle" parent="." unique_id=2010908715 instance=ExtResource("2_h518d")]
+position = Vector2(776, 448)
+
+[node name="Obstacle3" parent="." unique_id=727728889 instance=ExtResource("2_h518d")]
+position = Vector2(562, 276)
+
+[node name="Obstacle2" parent="." unique_id=1168391316 instance=ExtResource("2_h518d")]
+position = Vector2(368, 452)
+
+[node name="Fly" parent="." unique_id=290744887 instance=ExtResource("3_didps")]
+position = Vector2(928, 336)

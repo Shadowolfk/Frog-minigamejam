@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var tongue: Tongue = $Tongue
 
 var _relaunch_t: float = 0.6
+var _won_this_run: bool = false   
 var attempts: int = 0
 var wins: int = 0
 
@@ -20,7 +21,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if tongue.is_idle():
+	if tongue.is_idle() and not _won_this_run:
 		_relaunch_t -= delta
 		if _relaunch_t <= 0.0:
 			tongue.fire()
@@ -33,11 +34,12 @@ func _on_launched() -> void:
 func _on_caught(_node: Node) -> void:
 	print("hit")
 	wins += 1
+	
+	_won_this_run = true
 
 
 func _on_failed(_at: Vector2) -> void:
 	print("yikes")
-	pass
 
 
 func _on_reeled_in() -> void:

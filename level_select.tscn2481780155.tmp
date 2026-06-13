@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cub34l88lreki"]
+
+[ext_resource type="Script" uid="uid://bjarrki1j7ekr" path="res://level_select.gd" id="1_sel"]
+
+[node name="LevelSelect" type="Control" unique_id=2055971582]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_sel")
+
+[node name="Center" type="CenterContainer" parent="." unique_id=506980989]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBox" type="VBoxContainer" parent="Center" unique_id=1047129056]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="Center/VBox" unique_id=1523450589]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Select a level"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Center/VBox" unique_id=1244617789]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="Center/VBox" unique_id=1586966]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 4
