@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Frog"
-run/main_scene="uid://cjubkhpw5kwww"
+run/main_scene="uid://cj23utwtjchh0"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

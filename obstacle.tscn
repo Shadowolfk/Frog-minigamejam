@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bgm2odaw7y1k2"]
+
+[ext_resource type="Script" uid="uid://1thsd3no0p7o" path="res://obstacle.gd" id="1_sl1jc"]
+[ext_resource type="Texture2D" uid="uid://51qva45pel4n" path="res://icon.svg" id="2_aubd6"]
+
+[node name="Obstacle" type="Node2D" unique_id=2010908715]
+script = ExtResource("1_sl1jc")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1527617857]
+modulate = Color(0.0855064, 0.4850667, 2.8878452e-07, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_aubd6")
