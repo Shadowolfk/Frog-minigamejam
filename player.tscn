@@ -22,3 +22,17 @@ color = Color(0.9128252, 0.44483927, 0.6532552, 1)
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1977169794]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_i3pqv")
+
+[node name="HUD" type="Control" parent="." unique_id=1727577657]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="HUD" unique_id=854006576]
+layout_mode = 0
+offset_left = -34.0
+offset_top = 288.0
+offset_right = 372.0
+offset_bottom = 311.0
+text = "Press W/S to Control Tongue Movment Up and Down"
