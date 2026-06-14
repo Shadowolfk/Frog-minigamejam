@@ -35,6 +35,7 @@ func _ready() -> void:
 	if type == Type.ORBITAL:
 		position = _origin + Vector2.from_angle(orbit_angle_start) * orbit_radius
 	_last_pos = position
+	$AnimatedSprite2D.play("default")
 
 
 func _physics_process(delta: float) -> void:
