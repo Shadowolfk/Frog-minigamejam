@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://dthiwveogqppv"]
 
 [ext_resource type="PackedScene" uid="uid://kkt3jryo3u44" path="res://water.tscn" id="1_water"]
-[ext_resource type="Theme" path="res://ui_theme.tres" id="2_theme"]
-[ext_resource type="Script" path="res://main_menu.gd" id="3_main"]
-[ext_resource type="Script" path="res://menu_tongue.gd" id="4_tongue"]
+[ext_resource type="Theme" uid="uid://d0t4gwnnemvlh" path="res://ui_theme.tres" id="2_theme"]
+[ext_resource type="AudioStream" uid="uid://nakrxkw6b0lh" path="res://Lilyjam (Title Theme).mp3" id="3_glbon"]
+[ext_resource type="Script" uid="uid://b7x2j1i2j2bb8" path="res://main_menu.gd" id="3_main"]
+[ext_resource type="Script" uid="uid://daghnc1a4i7jv" path="res://menu_tongue.gd" id="4_tongue"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=1095715806]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -15,11 +16,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_theme")
 script = ExtResource("3_main")
+menu_music = ExtResource("3_glbon")
 tongue_path = NodePath("Tongue")
 
-[node name="Water" parent="." instance=ExtResource("1_water")]
+[node name="Water" parent="." unique_id=1978575528 instance=ExtResource("1_water")]
 
-[node name="Title" type="Label" parent="."]
+[node name="Title" type="Label" parent="." unique_id=630176669]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -31,7 +33,7 @@ text = "FROG"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Center" type="CenterContainer" parent="."]
+[node name="Center" type="CenterContainer" parent="." unique_id=1900597219]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,30 +42,30 @@ offset_top = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBox" type="VBoxContainer" parent="Center"]
+[node name="VBox" type="VBoxContainer" parent="Center" unique_id=53784416]
 layout_mode = 2
 theme_override_constants/separation = 18
 
-[node name="Play" type="Button" parent="Center/VBox"]
+[node name="Play" type="Button" parent="Center/VBox" unique_id=222345144]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Play"
 
-[node name="Levels" type="Button" parent="Center/VBox"]
+[node name="Levels" type="Button" parent="Center/VBox" unique_id=22816177]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Levels"
 
-[node name="Settings" type="Button" parent="Center/VBox"]
+[node name="Settings" type="Button" parent="Center/VBox" unique_id=899013154]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Settings"
 
-[node name="Quit" type="Button" parent="Center/VBox"]
+[node name="Quit" type="Button" parent="Center/VBox" unique_id=887512929]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 text = "Quit"
 
-[node name="Tongue" type="Node2D" parent="."]
+[node name="Tongue" type="Node2D" parent="." unique_id=1023774024]
 position = Vector2(330, 712)
 script = ExtResource("4_tongue")

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://nakrxkw6b0lh"
+path="res://.godot/imported/Lilyjam (Title Theme).mp3-2d3bebac88f7c2936b30570a33437428.mp3str"
+
+[deps]
+
+source_file="res://Lilyjam (Title Theme).mp3"
+dest_files=["res://.godot/imported/Lilyjam (Title Theme).mp3-2d3bebac88f7c2936b30570a33437428.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

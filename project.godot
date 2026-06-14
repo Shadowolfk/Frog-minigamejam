@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Levels="*uid://bkf7o8nqwt3yo"
 Settings="*res://settings.gd"
 UiSound="*res://ui_sound.gd"
+Music="*uid://clcp87hidcblc"
 
 [editor_plugins]
 

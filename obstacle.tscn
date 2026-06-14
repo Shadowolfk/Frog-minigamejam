@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://1thsd3no0p7o" path="res://obstacle.gd" id="1_sl1jc"]
 [ext_resource type="Texture2D" uid="uid://egm42a0oaqga" path="res://lilypad.png" id="2_aubd6"]
+[ext_resource type="AudioStream" uid="uid://k2uab3whotad" path="res://fly_eat.wav" id="2_tyhon"]
 [ext_resource type="Texture2D" uid="uid://bxl4w5d1js8nq" path="res://bristle32x32.png" id="3_vcivv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vcivv"]
@@ -52,6 +53,7 @@ animations = [{
 
 [node name="Lilypad" type="Node2D" unique_id=2010908715]
 script = ExtResource("1_sl1jc")
+hit_sound = ExtResource("2_tyhon")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=844725932]
 texture_filter = 1

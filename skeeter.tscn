@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://nomiktxcufvc"]
 
 [ext_resource type="Script" uid="uid://1thsd3no0p7o" path="res://obstacle.gd" id="1_v87ls"]
+[ext_resource type="AudioStream" uid="uid://br3vl0q80v1cg" path="res://sfx/SFX/WaterSkeeterDrip.wav" id="2_2nath"]
 [ext_resource type="Texture2D" uid="uid://be3kfb5kl7er4" path="res://skeeter.png" id="2_v87ls"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2nath"]
@@ -32,6 +33,7 @@ type = 1
 travel_direction = Vector2(0, 0.1)
 travel_distance = 240.0
 travel_speed = 0.24
+hit_sound = ExtResource("2_2nath")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2074617320]
 texture_filter = 1

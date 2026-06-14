@@ -131,12 +131,14 @@ func _step_out(delta: float) -> void:
 		var pad_pos: Vector2 = o.global_position
 	
 		if n.distance_squared_to(pad_pos) < pad_r_sq:
+			if o.has_method("on_hit"): o.on_hit()
 			failed.emit(n)
 			retract()
 			return
-		# body — skip index 0 (the mouth itself) so a pad near the frog doesn't insta-fail
+		# body
 		for i in range(1, _path.size()):
 			if _path[i].distance_squared_to(pad_pos) < pad_r_sq:
+				if o.has_method("on_hit"): o.on_hit()
 				failed.emit(_path[i])
 				retract()
 				return

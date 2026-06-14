@@ -35,12 +35,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _spawn_current_level() -> void:
+	Music.stop()
 	if _current_level and is_instance_valid(_current_level):
 		_current_level.queue_free()
 		_current_level = null
 	_won_this_run = false
 	_attempts_this_level = 0
-
+	
 	var ps := Levels.current_scene()
 	if ps == null:
 		_back_to_selector()
@@ -95,4 +96,6 @@ func _on_continue_pressed() -> void:
 
 func _back_to_selector() -> void:
 	get_tree().paused = false
+	var m : AudioStream = preload("res://Lilyjam (Title Theme).mp3")
+	Music.play(m)
 	get_tree().change_scene_to_file("res://level_select.tscn")

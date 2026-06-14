@@ -23,9 +23,15 @@ enum Type { STATIC, LINEAR, ORBITAL }
 
 @export_range(0.05, 1.0) var face_smoothing: float = 1.0
 
+@export_group("Hit Sound")
+@export var hit_sound: AudioStream
+@export_range(-40.0, 6.0) var hit_volume_db: float = 0.0
+@export_range(0.0, 0.5) var hit_pitch_variation: float = 0.0
+
 var _origin: Vector2
 var _time: float = 0.0
-var _last_pos: Vector2         
+var _last_pos: Vector2     
+var _audio: AudioStreamPlayer    
 
 
 func _ready() -> void:
@@ -36,6 +42,9 @@ func _ready() -> void:
 		position = _origin + Vector2.from_angle(orbit_angle_start) * orbit_radius
 	_last_pos = position
 	$AnimatedSprite2D.play("default")
+	_audio = AudioStreamPlayer.new()
+	_audio.bus = "Master"
+	add_child(_audio)
 
 
 func _physics_process(delta: float) -> void:
@@ -59,3 +68,11 @@ func _physics_process(delta: float) -> void:
 			else:
 				rotation = lerp_angle(rotation, target, face_smoothing)
 	_last_pos = position
+
+
+func on_hit() -> void:
+	if hit_sound == null: return
+	_audio.stream = hit_sound
+	_audio.volume_db = hit_volume_db
+	_audio.pitch_scale = randf_range(1.0 - hit_pitch_variation, 1.0 + hit_pitch_variation) if hit_pitch_variation > 0.0 else 1.0
+	_audio.play()

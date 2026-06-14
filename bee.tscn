@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://ev4wdfu4ak8i"]
 
 [ext_resource type="Script" uid="uid://1thsd3no0p7o" path="res://obstacle.gd" id="1_v5qog"]
+[ext_resource type="AudioStream" uid="uid://pts5rjndr8h3" path="res://sfx/SFX/BeeSting.wav" id="2_hoj8b"]
 [ext_resource type="Texture2D" uid="uid://cppogjebnm4hv" path="res://bee32x32.png" id="2_v5qog"]
+[ext_resource type="AudioStream" uid="uid://ddd4ok2w1u8ja" path="res://sfx/SFX/WaspBuzzing.wav" id="3_q8d8k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q8d8k"]
 atlas = ExtResource("2_v5qog")
@@ -32,9 +34,15 @@ type = 2
 travel_direction = Vector2(0, 0.1)
 travel_distance = 240.0
 travel_speed = 0.24
+hit_sound = ExtResource("2_hoj8b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2074617320]
 texture_filter = 1
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_bmcu0")
 frame_progress = 0.97986734
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=631677050]
+stream = ExtResource("3_q8d8k")
+volume_db = -10.852
+autoplay = true
