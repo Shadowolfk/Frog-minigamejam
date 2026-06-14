@@ -6,19 +6,29 @@ class_name MenuScreen
 ## hover, and plays UI feedback sounds.
 
 @export var tongue_path: NodePath
-## How strongly the tongue tip leans toward the mouse within the focused control
-## (0 = always centered, 1 = sits right on the cursor).
-@export_range(0.0, 1.0) var mouse_follow: float = 0.65
-## How far past the control's edge the tongue will still reach for the cursor.
-@export var mouse_follow_margin: float = 30.0
 ## Chase speed used while the tip is tracking the mouse (higher = less laggy).
 @export var mouse_follow_speed: float = 42.0
+## How strongly the tip is nudged toward a nearby button as the cursor nears it
+## (0 = pure cursor follow, 1 = snaps onto the button).
+@export_range(0.0, 1.0) var attract_strength: float = 0.4
+## Distance from a button at which that magnetic pull begins.
+@export var attract_range: float = 90.0
+
+@export_category("Flies")
+## Spawn buzzing, clickable flies that drift across the screen.
+@export var fly_enabled: bool = true
+@export var fly_first_delay: float = 5.0
+@export var fly_interval: float = 6.0
+@export var fly_max: int = 4
+
+const FLY_PATH := "res://menu_fly.tscn"
 
 var tongue: MenuTongue
+var _fly_scene: PackedScene
 var _focused: Control = null
 var _armed: bool = false
 var _mouse_active: bool = true
-var _following_mouse: bool = false
+var _fly_timer: float = 0.0
 
 
 func _ready() -> void:
@@ -28,6 +38,9 @@ func _ready() -> void:
 	refresh_focusables()
 	_focus_first.call_deferred()
 	_arm.call_deferred()
+	_fly_timer = fly_first_delay
+	if ResourceLoader.exists(FLY_PATH):
+		_fly_scene = load(FLY_PATH)
 
 
 func _arm() -> void:
@@ -75,37 +88,102 @@ func _on_focus_changed(ctrl: Control) -> void:
 			_play_move()
 
 
-func _process(_delta: float) -> void:
-	if tongue == null:
+func _process(delta: float) -> void:
+	if tongue != null:
+		if _mouse_active:
+			# Follow the cursor anywhere on screen, with a gentle magnetic pull
+			# toward a button when the cursor gets close to one.
+			tongue.set_target_global(_mouse_target(), mouse_follow_speed)
+		elif _focused != null and is_instance_valid(_focused):
+			# Keyboard navigation: rest on the focused control.
+			tongue.set_target_global(_anchor_of(_focused), tongue.follow_speed)
+		else:
+			tongue.clear_target()
+
+	if fly_enabled:
+		_fly_timer -= delta
+		if _fly_timer <= 0.0:
+			_fly_timer = fly_interval
+			_spawn_fly()
+
+
+func _spawn_fly() -> void:
+	if _fly_scene == null:
 		return
-	if _focused != null and is_instance_valid(_focused):
-		var point := _attach_point(_focused)
-		tongue.set_target_global(point, mouse_follow_speed if _following_mouse else tongue.follow_speed)
+	if get_tree().get_nodes_in_group("menu_fly").size() >= fly_max:
+		return
+	var fly := _fly_scene.instantiate() as Node2D
+	add_child(fly)
+	# enter from just off a random screen edge
+	var vp := get_viewport().get_visible_rect().size
+	match randi() % 4:
+		0: fly.global_position = Vector2(-24.0, randf_range(0.0, vp.y))
+		1: fly.global_position = Vector2(vp.x + 24.0, randf_range(0.0, vp.y))
+		2: fly.global_position = Vector2(randf_range(0.0, vp.x), -24.0)
+		_: fly.global_position = Vector2(randf_range(0.0, vp.x), vp.y + 24.0)
+
+
+func _try_eat_fly() -> void:
+	var pos := get_global_mouse_position()
+	var best: Node2D = null
+	var best_d := INF
+	for f in get_tree().get_nodes_in_group("menu_fly"):
+		var fly := f as Node2D
+		if fly == null or not is_instance_valid(fly):
+			continue
+		var d := pos.distance_to(fly.global_position)
+		if d <= float(fly.get("hit_radius")) and d < best_d:
+			best = fly
+			best_d = d
+	if best == null:
+		return
+	get_viewport().set_input_as_handled()
+
+	# Lash the tongue out to grab it; it pops when the tip arrives.
+	var fly_ref := best
+	if tongue != null:
+		tongue.grab(fly_ref, func() -> void:
+			if is_instance_valid(fly_ref):
+				fly_ref.call("eat"))
 	else:
-		tongue.clear_target()
+		fly_ref.call("eat")
 
 
-## Where the tongue tip should land on a control. The tip rests on an anchor
-## (control centre, or the grabber for sliders) but leans toward the mouse while
-## the cursor is over the control, so it reads as actively selecting it. When the
-## mouse is elsewhere (keyboard navigation) it snaps back to the anchor.
-func _attach_point(c: Control) -> Vector2:
+## The point the tip rests on for a control: its centre, or the grabber for a
+## slider.
+func _anchor_of(c: Control) -> Vector2:
 	var r := c.get_global_rect()
-	var anchor := r.get_center()
 	if c is HSlider:
 		var s := c as HSlider
 		var ratio := 0.0
 		if s.max_value > s.min_value:
 			ratio = (s.value - s.min_value) / (s.max_value - s.min_value)
-		anchor = Vector2(r.position.x + r.size.x * ratio, r.position.y + r.size.y * 0.5)
+		return Vector2(r.position.x + r.size.x * ratio, r.position.y + r.size.y * 0.5)
+	return r.get_center()
 
-	if _mouse_active:
-		var mouse := get_global_mouse_position()
-		if r.grow(mouse_follow_margin).has_point(mouse):
-			_following_mouse = true
-			return anchor.lerp(mouse, mouse_follow)
-	_following_mouse = false
-	return anchor
+
+## The tip target while using the mouse: the cursor itself, eased toward the
+## nearest button the closer the cursor gets to it (a slight magnetic pull).
+func _mouse_target() -> Vector2:
+	var mouse := get_global_mouse_position()
+	var nearest_anchor := mouse
+	var nearest_d := INF
+	for c in _collect(self, []):
+		var ctrl := c as Control
+		if ctrl == null:
+			continue
+		if ctrl is BaseButton and (ctrl as BaseButton).disabled:
+			continue
+		var r := ctrl.get_global_rect()
+		var clamped := Vector2(
+			clampf(mouse.x, r.position.x, r.position.x + r.size.x),
+			clampf(mouse.y, r.position.y, r.position.y + r.size.y))
+		var d := mouse.distance_to(clamped)
+		if d < nearest_d:
+			nearest_d = d
+			nearest_anchor = _anchor_of(ctrl)
+	var pull := attract_strength * clampf(1.0 - nearest_d / attract_range, 0.0, 1.0)
+	return mouse.lerp(nearest_anchor, pull)
 
 
 func _input(event: InputEvent) -> void:
@@ -119,6 +197,9 @@ func _input(event: InputEvent) -> void:
 		if _mouse_active:
 			_mouse_active = false
 			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		# Eat a fly if one is under the cursor (handled before buttons/sliders).
+		_try_eat_fly()
 
 
 func _exit_tree() -> void:

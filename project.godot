@@ -21,6 +21,10 @@ Levels="*uid://bkf7o8nqwt3yo"
 Settings="*res://settings.gd"
 UiSound="*res://ui_sound.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/level_tool/plugin.cfg")
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

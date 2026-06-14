@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://menu_fly.gd" id="1_fly"]
+[ext_resource type="Texture2D" uid="uid://bjfjr3sglivap" path="res://tempFly32x32.png" id="2_tex"]
+
+[node name="Fly" type="Node2D"]
+script = ExtResource("1_fly")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.05882353, 1)
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_tex")

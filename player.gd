@@ -20,7 +20,7 @@ func _ready() -> void:
 	tongue.launched.connect(_on_launched)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if tongue.is_idle() and not _won_this_run:
 		
 		if Input.is_action_just_pressed("ui_accept"):

@@ -19,6 +19,10 @@ class_name MenuTongue
 @export var wave_freq: float = 2.4       ## ripples along the length
 @export var wave_speed: float = 4.5      ## ripple travel speed
 @export var extend_speed: float = 5.0    ## extend / retract rate
+@export var grab_speed: float = 34.0     ## tip speed while lashing out at a fly
+@export var grab_reach: float = 24.0     ## distance at which the fly is caught
+@export var grab_windup: float = 70.0    ## how far the tip pulls back before striking
+@export var grab_windup_speed: float = 16.0  ## speed of that pull-back
 
 var _tip: Vector2 = Vector2.ZERO
 var _target: Vector2 = Vector2.ZERO
@@ -26,6 +30,15 @@ var _has_target: bool = false
 var _extend: float = 0.0
 var _t: float = 0.0
 var _active_speed: float = follow_speed
+
+enum _Grab { WINDUP, STRIKE }
+
+var _grabbing: bool = false
+var _grab_phase: int = _Grab.WINDUP
+var _grab_target: Node2D = null
+var _grab_pos: Vector2 = Vector2.ZERO
+var _windup_pos: Vector2 = Vector2.ZERO
+var _grab_cb: Callable = Callable()
 
 
 func _ready() -> void:
@@ -37,22 +50,76 @@ func _ready() -> void:
 ## Aim the tongue at a global point. Pass a custom chase speed (e.g. a faster one
 ## while tracking the mouse) or leave it for the default sweep speed.
 func set_target_global(p: Vector2, speed: float = -1.0) -> void:
+	if _grabbing:
+		return
 	_target = p
 	_has_target = true
 	_active_speed = speed if speed > 0.0 else follow_speed
 
 
 func clear_target() -> void:
+	if _grabbing:
+		return
 	_has_target = false
 	_active_speed = follow_speed
 
 
+## Lash out and catch a (possibly moving) node, calling on_reach when the tip
+## arrives. Used to grab flies.
+func grab(target: Node2D, on_reach: Callable) -> void:
+	if not is_instance_valid(target):
+		return
+	_grab_target = target
+	_grab_pos = target.global_position
+	_grab_cb = on_reach
+	_grabbing = true
+	_grab_phase = _Grab.WINDUP
+	# Pull the current tip back toward the mouth before striking.
+	var to_mouth := global_position - _tip
+	if to_mouth.length() > grab_windup:
+		_windup_pos = _tip + to_mouth.normalized() * grab_windup
+	else:
+		_windup_pos = global_position
+
+
+func is_grabbing() -> bool:
+	return _grabbing
+
+
 func _process(delta: float) -> void:
 	_t += delta
-	var goal := _target if _has_target else global_position
-	_tip = _tip.lerp(goal, clampf(_active_speed * delta, 0.0, 1.0))
-	_extend = move_toward(_extend, 1.0 if _has_target else 0.0, extend_speed * delta)
+	if _grabbing:
+		_step_grab(delta)
+	else:
+		var goal := _target if _has_target else global_position
+		_tip = _tip.lerp(goal, clampf(_active_speed * delta, 0.0, 1.0))
+		_extend = move_toward(_extend, 1.0 if _has_target else 0.0, extend_speed * delta)
 	queue_redraw()
+
+
+func _step_grab(delta: float) -> void:
+	if not is_instance_valid(_grab_target):
+		_grabbing = false
+		_grab_cb = Callable()
+		return
+	_grab_pos = _grab_target.global_position
+	_extend = move_toward(_extend, 1.0, extend_speed * delta)
+
+	if _grab_phase == _Grab.WINDUP:
+		_tip = _tip.lerp(_windup_pos, clampf(grab_windup_speed * delta, 0.0, 1.0))
+		if _tip.distance_to(_windup_pos) <= 6.0:
+			_grab_phase = _Grab.STRIKE
+		return
+
+	# STRIKE: lash out to the fly.
+	_tip = _tip.lerp(_grab_pos, clampf(grab_speed * delta, 0.0, 1.0))
+	if _tip.distance_to(_grab_pos) <= grab_reach:
+		_grabbing = false
+		_grab_target = null
+		var cb := _grab_cb
+		_grab_cb = Callable()
+		if cb.is_valid():
+			cb.call()
 
 
 func _draw() -> void:
