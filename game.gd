@@ -4,7 +4,7 @@ extends Node2D
 
 @onready var level_holder: Node2D = $LevelHolder
 @onready var hud: CanvasLayer = $HUD
-
+@export var color : Color
 var _current_level: Node = null
 var _won_this_run: bool = false
 var _attempts_this_level: int = 0
@@ -17,9 +17,19 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-
+	
 	if event.is_action_pressed("ui_cancel"):
 		_back_to_selector()
+		
+	if Input.is_physical_key_pressed(KEY_W) or Input.is_physical_key_pressed(KEY_UP):
+		$HUD/AnimatedSprite2D2.modulate = color
+	else:
+		$HUD/AnimatedSprite2D2.modulate = Color.WHITE
+	if Input.is_physical_key_pressed(KEY_S) or Input.is_physical_key_pressed(KEY_DOWN):
+		$HUD/AnimatedSprite2D.modulate = color
+	else:
+		$HUD/AnimatedSprite2D.modulate = Color.WHITE
+
 
 
 

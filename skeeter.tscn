@@ -31,8 +31,10 @@ script = ExtResource("1_v87ls")
 type = 1
 travel_direction = Vector2(0, 0.1)
 travel_distance = 240.0
+travel_speed = 0.24
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2074617320]
 texture_filter = 1
+rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_bmcu0")
-frame_progress = 0.54519635
+frame_progress = 0.75791204

@@ -100,6 +100,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _step_out(delta: float) -> void:
+
 	var acc := 0.0
 	if Input.is_physical_key_pressed(KEY_W) or Input.is_physical_key_pressed(KEY_UP):    acc -= steer_accel
 	if Input.is_physical_key_pressed(KEY_S) or Input.is_physical_key_pressed(KEY_DOWN):  acc += steer_accel
@@ -119,18 +120,30 @@ func _step_out(delta: float) -> void:
 
 	var n := _head + vel * delta
 
+
 	for o in get_tree().get_nodes_in_group("obstacle"):
 		if not is_instance_valid(o): continue
-		var or_ := _obstacle_radius(o)
-		if n.distance_to(o.global_position) < or_ + collide_radius:
+		var pad_r := _obstacle_radius(o) + collide_radius
+		var pad_r_sq := pad_r * pad_r
+		var pad_pos: Vector2 = o.global_position
+	
+		if n.distance_squared_to(pad_pos) < pad_r_sq:
 			failed.emit(n)
 			retract()
 			return
+		# body — skip index 0 (the mouth itself) so a pad near the frog doesn't insta-fail
+		for i in range(1, _path.size()):
+			if _path[i].distance_squared_to(pad_pos) < pad_r_sq:
+				failed.emit(_path[i])
+				retract()
+				return
 
+	
 	_head = n
 	_len += vel.length() * delta
 	if _path.size() == 0 or _head.distance_to(_path[_path.size() - 1]) >= sample_distance:
 		_push_trail_point(_head)
+
 
 	for c in get_tree().get_nodes_in_group("catchable"):
 		if not is_instance_valid(c): continue
