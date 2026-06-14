@@ -21,9 +21,9 @@ Levels="*uid://bkf7o8nqwt3yo"
 Settings="*res://settings.gd"
 UiSound="*res://ui_sound.gd"
 
-[audio]
+[editor_plugins]
 
-buses/default_bus_layout="res://default_bus_layout.tres"
+enabled=PackedStringArray("res://addons/level_tool/plugin.cfg")
 
 [physics]
 
