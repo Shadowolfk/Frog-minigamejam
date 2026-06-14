@@ -2,7 +2,10 @@
 
 [ext_resource type="Script" uid="uid://d2uj0phpwtcv4" path="res://game.gd" id="1_game"]
 [ext_resource type="Script" uid="uid://bm1jcxsp1c6g4" path="res://hud.gd" id="2_hud"]
+[ext_resource type="Texture2D" uid="uid://bvpnbecc5nlhq" path="res://Rectangle.png" id="3_7jktm"]
+[ext_resource type="FontFile" uid="uid://dlxukmoyb358s" path="res://Connection.otf" id="3_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://kkt3jryo3u44" path="res://water.tscn" id="3_feb5d"]
+[ext_resource type="Texture2D" uid="uid://cgk61rhegnfdt" path="res://rectangeshade.png" id="4_ryrav"]
 
 [node name="Game" type="Node2D" unique_id=145818865]
 script = ExtResource("1_game")
@@ -21,12 +24,25 @@ offset_bottom = 60.0
 grow_horizontal = 2
 mouse_filter = 2
 
-[node name="BackButton" type="Button" parent="HUD/TopBar" unique_id=944581614]
+[node name="BackButton" type="TextureButton" parent="HUD/TopBar" unique_id=1515314098]
+texture_filter = 1
 layout_mode = 0
-offset_left = 16.0
-offset_top = 12.0
-offset_right = 96.0
-offset_bottom = 48.0
+offset_left = 12.0
+offset_top = -19.0
+offset_right = 76.0
+offset_bottom = 45.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("3_7jktm")
+texture_pressed = ExtResource("4_ryrav")
+texture_hover = ExtResource("4_ryrav")
+
+[node name="Label" type="Label" parent="HUD/TopBar/BackButton" unique_id=1185237023]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 24.0
+offset_right = 52.0
+offset_bottom = 47.0
+theme_override_fonts/font = ExtResource("3_fc0e3")
 text = "Back"
 
 [node name="LevelLabel" type="Label" parent="HUD/TopBar" unique_id=314247668]
@@ -37,20 +53,24 @@ offset_left = -100.0
 offset_top = 14.0
 offset_right = 100.0
 offset_bottom = 46.0
+theme_override_fonts/font = ExtResource("3_fc0e3")
 theme_override_font_sizes/font_size = 22
-text = "Level 1"
+text = "1                                         Level"
 horizontal_alignment = 1
 
 [node name="AttemptsLabel" type="Label" parent="HUD/TopBar" unique_id=1278990471]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -200.0
+offset_left = -216.0
 offset_top = 14.0
-offset_right = -16.0
+offset_right = -32.0
 offset_bottom = 46.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("3_fc0e3")
 theme_override_font_sizes/font_size = 22
-text = "Attempts: 0"
+text = "0                                                                     Attempts:"
 horizontal_alignment = 2
 
 [node name="CompletionPanel" type="Control" parent="HUD" unique_id=61452862]

@@ -6,7 +6,7 @@ signal select_pressed
 
 @onready var level_label: Label = $TopBar/LevelLabel
 @onready var attempts_label: Label = $TopBar/AttemptsLabel
-@onready var back_button: Button = $TopBar/BackButton
+@onready var back_button: TextureButton = $TopBar/BackButton
 
 @onready var completion_panel: Control = $CompletionPanel
 @onready var completion_title: Label = $CompletionPanel/Center/Panel/Margin/VBox/Title
@@ -23,11 +23,11 @@ func _ready() -> void:
 
 
 func set_level(n: int) -> void:
-	level_label.text = "Level %d" % n
+	level_label.text = "%d                                          Level" % n
 
 
 func set_attempts(n: int) -> void:
-	attempts_label.text = "Attempts: %d" % n
+	attempts_label.text = "%d                                                                     Attempts: " % n
 
 
 func show_completion(attempts: int, has_next: bool) -> void:

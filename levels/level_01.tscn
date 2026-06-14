@@ -10,10 +10,15 @@
 position = Vector2(59, 288)
 
 [node name="Obstacle" parent="." unique_id=2010908715 instance=ExtResource("2_gg43x")]
-position = Vector2(375, 215)
+position = Vector2(360, 238)
+scale = Vector2(2, 2)
+obstacle_radius = 96.0
 
 [node name="Obstacle2" parent="." unique_id=1168391316 instance=ExtResource("2_gg43x")]
-position = Vector2(581, 485)
+position = Vector2(572, 470)
+rotation = 3.1415927
+scale = Vector2(2, 2)
+obstacle_radius = 96.0
 
 [node name="Fly" parent="." unique_id=290744887 instance=ExtResource("3_mllcm")]
 position = Vector2(928, 336)

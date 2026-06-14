@@ -1,12 +1,40 @@
 [gd_scene format=3 uid="uid://bgm2odaw7y1k2"]
 
 [ext_resource type="Script" uid="uid://1thsd3no0p7o" path="res://obstacle.gd" id="1_sl1jc"]
-[ext_resource type="Texture2D" uid="uid://51qva45pel4n" path="res://icon.svg" id="2_aubd6"]
+[ext_resource type="Texture2D" uid="uid://egm42a0oaqga" path="res://lilypad.png" id="2_aubd6"]
 
-[node name="Obstacle" type="Node2D" unique_id=2010908715]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcivv"]
+atlas = ExtResource("2_aubd6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tyhon"]
+atlas = ExtResource("2_aubd6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fvdov"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcivv")
+}],
+"loop": true,
+"name": &"Type1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tyhon")
+}],
+"loop": true,
+"name": &"Type2",
+"speed": 5.0
+}]
+
+[node name="Lilypad" type="Node2D" unique_id=2010908715]
 script = ExtResource("1_sl1jc")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1527617857]
-modulate = Color(0.0855064, 0.4850667, 2.8878452e-07, 1)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_aubd6")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=844725932]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_fvdov")
+animation = &"Type1"

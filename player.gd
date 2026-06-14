@@ -2,17 +2,17 @@ extends CharacterBody2D
 
 
 @export var mouth_offset: Vector2 = Vector2(0, -4)
-@export var relaunch_delay: float = 0.5
 
 @onready var tongue: Tongue = $Tongue
 
-var _relaunch_t: float = 0.6
 var _won_this_run: bool = false   
 var attempts: int = 0
 var wins: int = 0
 
 
 func _ready() -> void:
+	$AnimatedSprite2D.play("default")
+
 	tongue.position = mouth_offset
 	tongue.caught.connect(_on_caught)
 	tongue.failed.connect(_on_failed)
@@ -22,8 +22,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if tongue.is_idle() and not _won_this_run:
-		_relaunch_t -= delta
-		if _relaunch_t <= 0.0:
+		
+		if Input.is_action_just_pressed("ui_accept"):
 			tongue.fire()
 
 
@@ -46,5 +46,3 @@ func _on_failed(_at: Vector2) -> void:
 
 func _on_reeled_in() -> void:
 	$AnimatedSprite2D.play("default")
-
-	_relaunch_t = relaunch_delay
