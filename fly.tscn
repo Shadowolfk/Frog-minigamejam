@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bjfjr3sglivap" path="res://tempFly32x32.png" id="2_qarim"]
 
 [node name="Fly" type="Node2D" unique_id=290744887]
+z_index = -4
 script = ExtResource("1_mv3iy")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1550314826]

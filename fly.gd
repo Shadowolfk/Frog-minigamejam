@@ -9,3 +9,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	pass
+
+
+func on_caught() -> void:
+	set_physics_process(false)
