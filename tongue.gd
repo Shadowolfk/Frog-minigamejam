@@ -43,6 +43,7 @@ signal caught(node)
 signal failed(at_position)
 signal launched
 signal reeled_in
+signal delivered(nodes) 
 
 var state: int = State.IDLE
 var _path: PackedVector2Array        
@@ -54,6 +55,7 @@ var _vy: float = 0.0
 var _len: float = 0.0
 var _max_len: float = 900.0
 var _age: float = 0.0
+var _caught_nodes: Array = []  
 
 
 func _ready() -> void:
@@ -67,6 +69,7 @@ func length_max() -> float: return _max_len
 
 
 func fire() -> void:
+	_caught_nodes.clear()
 	if state != State.IDLE: return
 	var a := global_position
 	_path = PackedVector2Array([a])
@@ -145,9 +148,13 @@ func _step_out(delta: float) -> void:
 		_push_trail_point(_head)
 
 
+	
 	for c in get_tree().get_nodes_in_group("catchable"):
 		if not is_instance_valid(c): continue
 		if _head.distance_to(c.global_position) < grab_radius:
+			_caught_nodes.append(c)
+			if c.has_method("on_caught"):
+				c.on_caught()
 			caught.emit(c)
 			retract()
 			return
@@ -176,9 +183,16 @@ func _step_in(delta: float) -> void:
 			remain = 0.0
 	if _path.size() > 0:
 		_head = _path[_path.size() - 1]
+		
+		for c in _caught_nodes:
+			if is_instance_valid(c):
+				c.global_position = _head
 	if _path.size() <= 1:
 		state = State.IDLE
 		_len = 0.0
+		if _caught_nodes.size() > 0:
+			delivered.emit(_caught_nodes.duplicate())
+			_caught_nodes.clear()
 		reeled_in.emit()
 
 

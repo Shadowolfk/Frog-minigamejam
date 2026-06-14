@@ -1,30 +1,8 @@
-[gd_resource type="Theme" load_steps=9 format=3]
+[gd_resource type="Theme" format=3 uid="uid://d0t4gwnnemvlh"]
 
 [ext_resource type="FontFile" uid="uid://dlxukmoyb358s" path="res://Connection.otf" id="1_font"]
 [ext_resource type="Texture2D" uid="uid://d0pndtapgdud0" path="res://Square.png" id="2_square"]
 [ext_resource type="Texture2D" uid="uid://bk4v3u6xxoa8m" path="res://squareshaded.png" id="3_shaded"]
-
-[sub_resource type="StyleBoxTexture" id="sq_normal"]
-content_margin_left = 20.0
-content_margin_top = 12.0
-content_margin_right = 20.0
-content_margin_bottom = 14.0
-texture = ExtResource("2_square")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxTexture" id="sq_shaded"]
-content_margin_left = 20.0
-content_margin_top = 12.0
-content_margin_right = 20.0
-content_margin_bottom = 14.0
-texture = ExtResource("3_shaded")
-texture_margin_left = 12.0
-texture_margin_top = 12.0
-texture_margin_right = 12.0
-texture_margin_bottom = 12.0
 
 [sub_resource type="StyleBoxTexture" id="sq_disabled"]
 content_margin_left = 20.0
@@ -38,17 +16,39 @@ texture_margin_right = 12.0
 texture_margin_bottom = 12.0
 modulate_color = Color(1, 1, 1, 0.4)
 
-[sub_resource type="StyleBoxFlat" id="slider_bg"]
-content_margin_top = 8.0
-content_margin_bottom = 8.0
-bg_color = Color(0.06, 0.12, 0.2, 0.6)
+[sub_resource type="StyleBoxTexture" id="sq_shaded"]
+content_margin_left = 20.0
+content_margin_top = 12.0
+content_margin_right = 20.0
+content_margin_bottom = 14.0
+texture = ExtResource("3_shaded")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="sq_normal"]
+content_margin_left = 20.0
+content_margin_top = 12.0
+content_margin_right = 20.0
+content_margin_bottom = 14.0
+texture = ExtResource("2_square")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="slider_fill"]
+bg_color = Color(0.8509804, 0.34117648, 0.3882353, 1)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="StyleBoxFlat" id="slider_fill"]
-bg_color = Color(0.85098039, 0.34117648, 0.38823529, 1)
+[sub_resource type="StyleBoxFlat" id="slider_bg"]
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.06, 0.12, 0.2, 0.6)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
