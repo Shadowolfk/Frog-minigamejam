@@ -2,26 +2,67 @@
 
 [ext_resource type="Script" uid="uid://cnnscjajs1mh6" path="res://player.gd" id="1_onrkg"]
 [ext_resource type="Script" uid="uid://c5v2rf80bbut4" path="res://tongue.gd" id="2_i3pqv"]
-[ext_resource type="Texture2D" uid="uid://51qva45pel4n" path="res://icon.svg" id="3_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://cdfh7voymb1b6" path="res://frog1.png" id="3_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://egm42a0oaqga" path="res://lilypad.png" id="4_hqtel"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hqtel"]
 radius = 20.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqtel"]
+atlas = ExtResource("3_i3pqv")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sweqy"]
+atlas = ExtResource("3_i3pqv")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2hs0m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqtel")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sweqy")
+}],
+"loop": true,
+"name": &"tongue",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hs0m"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1jxqw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hs0m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Player" type="CharacterBody2D" unique_id=461573234]
 script = ExtResource("1_onrkg")
 
 [node name="HitBox" type="CollisionShape2D" parent="." unique_id=278683381]
+visible = false
 shape = SubResource("CircleShape2D_hqtel")
 
 [node name="Tongue" type="Node2D" parent="." unique_id=586002316]
 script = ExtResource("2_i3pqv")
 max_length_factor = 1.3
 grab_radius = 48.0
-color = Color(0.9128252, 0.44483927, 0.6532552, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1977169794]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_i3pqv")
+color = Color(0.8509804, 0.34117648, 0.3882353, 1)
+color_core = Color(0.6423978, 0.21280804, 0.26131088, 1)
 
 [node name="HUD" type="Control" parent="." unique_id=1727577657]
 layout_mode = 3
@@ -36,3 +77,19 @@ offset_top = 288.0
 offset_right = 372.0
 offset_bottom = 311.0
 text = "Press W/S to Control Tongue Movment Up and Down"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=322748442]
+z_index = -1
+texture_filter = 1
+position = Vector2(0, -6)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_2hs0m")
+animation = &"tongue"
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=306209266]
+modulate = Color(0.8891468, 0.8891468, 0.88914675, 1)
+z_index = -3
+texture_filter = 1
+position = Vector2(-4.7683716e-07, 29)
+scale = Vector2(2.96875, 2.09375)
+sprite_frames = SubResource("SpriteFrames_1jxqw")

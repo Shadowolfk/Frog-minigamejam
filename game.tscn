@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d2uj0phpwtcv4" path="res://game.gd" id="1_game"]
 [ext_resource type="Script" uid="uid://bm1jcxsp1c6g4" path="res://hud.gd" id="2_hud"]
+[ext_resource type="PackedScene" uid="uid://kkt3jryo3u44" path="res://water.tscn" id="3_feb5d"]
 
 [node name="Game" type="Node2D" unique_id=145818865]
 script = ExtResource("1_game")
@@ -17,6 +18,7 @@ layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 60.0
+grow_horizontal = 2
 mouse_filter = 2
 
 [node name="BackButton" type="Button" parent="HUD/TopBar" unique_id=944581614]
@@ -57,6 +59,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Background" type="ColorRect" parent="HUD/CompletionPanel" unique_id=1832240907]
 layout_mode = 0
@@ -110,3 +114,5 @@ text = "Levels"
 custom_minimum_size = Vector2(130, 44)
 layout_mode = 2
 text = "Next Level"
+
+[node name="Water" parent="." unique_id=1489696045 instance=ExtResource("3_feb5d")]

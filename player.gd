@@ -28,19 +28,23 @@ func _process(delta: float) -> void:
 
 
 func _on_launched() -> void:
+	$AnimatedSprite2D.play("tongue")
 	attempts += 1
 
 
 func _on_caught(_node: Node) -> void:
 	print("hit")
 	wins += 1
-	
+
 	_won_this_run = true
 
 
 func _on_failed(_at: Vector2) -> void:
+
 	print("yikes")
 
 
 func _on_reeled_in() -> void:
+	$AnimatedSprite2D.play("default")
+
 	_relaunch_t = relaunch_delay

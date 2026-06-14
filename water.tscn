@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://kkt3jryo3u44"]
+
+[ext_resource type="Shader" uid="uid://d3selkvcomifk" path="res://water.gdshader" id="1_shader"]
+[ext_resource type="Texture2D" uid="uid://4tg0uj4tebi" path="res://water.png" id="2_tex"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_water"]
+shader = ExtResource("1_shader")
+shader_parameter/deep_color = Color(0.19139612, 0.27356428, 0.48378235, 1)
+shader_parameter/shallow_color = Color(0.24645808, 0.41378668, 0.6705977, 1)
+shader_parameter/highlight_color = Color(0.36527964, 0.5927469, 0.8023899, 1)
+shader_parameter/noise_tex = ExtResource("2_tex")
+shader_parameter/speed = 0.4850000230375
+shader_parameter/tile_scale = 0.50000002049012
+shader_parameter/highlight_strength = 0.170000008075
+shader_parameter/vignette = 0.0
+shader_parameter/back_scale = 1.5580000707451198
+shader_parameter/back_strength = 0.2350000111625
+shader_parameter/back_speed = 0.3
+shader_parameter/pixels = 300.0000133
+
+[node name="Water" type="CanvasLayer" unique_id=894395612]
+layer = -10
+
+[node name="Rect" type="ColorRect" parent="." unique_id=1199074686]
+material = SubResource("ShaderMaterial_water")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

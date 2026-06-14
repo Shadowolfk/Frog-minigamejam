@@ -1,12 +1,15 @@
 [gd_scene format=3 uid="uid://cub34l88lreki"]
 
 [ext_resource type="Script" uid="uid://bjarrki1j7ekr" path="res://level_select.gd" id="1_sel"]
+[ext_resource type="PackedScene" uid="uid://kkt3jryo3u44" path="res://water.tscn" id="2_vomi7"]
 
 [node name="LevelSelect" type="Control" unique_id=2055971582]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_sel")
 
 [node name="Center" type="CenterContainer" parent="." unique_id=506980989]
@@ -34,3 +37,5 @@ layout_mode = 2
 theme_override_constants/h_separation = 12
 theme_override_constants/v_separation = 12
 columns = 4
+
+[node name="Water" parent="." unique_id=1489696045 instance=ExtResource("2_vomi7")]

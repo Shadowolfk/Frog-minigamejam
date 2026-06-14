@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://gwf7vi6kiyup"]
 
 [ext_resource type="Script" uid="uid://bmjx3yc8qig0y" path="res://fly.gd" id="1_mv3iy"]
-[ext_resource type="Texture2D" uid="uid://51qva45pel4n" path="res://icon.svg" id="2_qarim"]
+[ext_resource type="Texture2D" uid="uid://bjfjr3sglivap" path="res://tempFly32x32.png" id="2_qarim"]
 
 [node name="Fly" type="Node2D" unique_id=290744887]
 script = ExtResource("1_mv3iy")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1550314826]
 modulate = Color(1, 1, 0.05882353, 1)
-scale = Vector2(0.5, 0.5)
+texture_filter = 1
+scale = Vector2(2, 2)
 texture = ExtResource("2_qarim")
