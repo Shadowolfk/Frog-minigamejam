@@ -11,13 +11,19 @@ config_version=5
 [application]
 
 config/name="Frog"
-run/main_scene="res://level_select.tscn"
+run/main_scene="res://main_menu.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Levels="*uid://bkf7o8nqwt3yo"
+Settings="*res://settings.gd"
+UiSound="*res://ui_sound.gd"
+
+[audio]
+
+buses/default_bus_layout="res://default_bus_layout.tres"
 
 [physics]
 

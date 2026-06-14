@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cub34l88lreki"]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="PackedScene" uid="uid://kkt3jryo3u44" path="res://water.tscn" id="1_water"]
 [ext_resource type="Theme" path="res://ui_theme.tres" id="2_theme"]
-[ext_resource type="Script" uid="uid://bjarrki1j7ekr" path="res://level_select.gd" id="3_sel"]
+[ext_resource type="Script" path="res://main_menu.gd" id="3_main"]
 [ext_resource type="Script" path="res://menu_tongue.gd" id="4_tongue"]
 
-[node name="LevelSelect" type="Control"]
+[node name="MainMenu" type="Control"]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -14,7 +14,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_theme")
-script = ExtResource("3_sel")
+script = ExtResource("3_main")
 tongue_path = NodePath("Tongue")
 
 [node name="Water" parent="." instance=ExtResource("1_water")]
@@ -23,11 +23,11 @@ tongue_path = NodePath("Tongue")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 48.0
-offset_bottom = 120.0
+offset_top = 56.0
+offset_bottom = 160.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 56
-text = "Select a Level"
+theme_override_font_sizes/font_size = 96
+text = "FROG"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -36,28 +36,34 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 50.0
+offset_top = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="Center"]
 layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
+theme_override_constants/separation = 18
 
-[node name="Grid" type="GridContainer" parent="Center/VBox"]
+[node name="Play" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/h_separation = 16
-theme_override_constants/v_separation = 16
-columns = 4
+text = "Play"
 
-[node name="Back" type="Button" parent="Center/VBox"]
-custom_minimum_size = Vector2(200, 0)
+[node name="Levels" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Back"
+text = "Levels"
+
+[node name="Settings" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Settings"
+
+[node name="Quit" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Quit"
 
 [node name="Tongue" type="Node2D" parent="."]
-position = Vector2(980, 712)
+position = Vector2(330, 712)
 script = ExtResource("4_tongue")
