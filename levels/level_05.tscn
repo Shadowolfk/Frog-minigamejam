@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bv76qv82eo38s"]
+
+[ext_resource type="PackedScene" uid="uid://cjubkhpw5kwww" path="res://player.tscn" id="1_ecwps"]
+[ext_resource type="PackedScene" uid="uid://gwf7vi6kiyup" path="res://fly.tscn" id="2_7d3dm"]
+[ext_resource type="PackedScene" uid="uid://ev4wdfu4ak8i" path="res://bee.tscn" id="3_g3bu7"]
+
+[node name="Woirld" type="Node2D" unique_id=1491960833]
+
+[node name="Player" parent="." unique_id=461573234 instance=ExtResource("1_ecwps")]
+position = Vector2(59, 288)
+
+[node name="Fly" parent="." unique_id=290744887 instance=ExtResource("2_7d3dm")]
+position = Vector2(655, 309)
+
+[node name="Bee" parent="." unique_id=2010908715 instance=ExtResource("3_g3bu7")]
+position = Vector2(658, 308)
+orbit_speed = 0.4
+
+[node name="Bee2" parent="." unique_id=783532429 instance=ExtResource("3_g3bu7")]
+position = Vector2(661, 308)
+orbit_radius = 240.0
+orbit_speed = -0.6
+
+[node name="Bee3" parent="." unique_id=1403899279 instance=ExtResource("3_g3bu7")]
+position = Vector2(661, 308)
+orbit_radius = 360.0
+orbit_speed = 0.8

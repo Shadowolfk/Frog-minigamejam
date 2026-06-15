@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://cjubkhpw5kwww" path="res://player.tscn" id="1_85vqe"]
 [ext_resource type="PackedScene" uid="uid://ev4wdfu4ak8i" path="res://bee.tscn" id="3_85vqe"]
 [ext_resource type="PackedScene" uid="uid://gwf7vi6kiyup" path="res://fly.tscn" id="3_ngl01"]
-[ext_resource type="PackedScene" uid="uid://nomiktxcufvc" path="res://skeeter.tscn" id="4_p0vsl"]
 
 [node name="Woirld" type="Node2D" unique_id=1491960833]
 
@@ -19,6 +18,3 @@ position = Vector2(459, 422)
 [node name="Bee2" parent="." unique_id=783532429 instance=ExtResource("3_85vqe")]
 position = Vector2(695, 154)
 orbit_speed = -0.25
-
-[node name="Skeeter" parent="." unique_id=2024369369 instance=ExtResource("4_p0vsl")]
-position = Vector2(568, 301)

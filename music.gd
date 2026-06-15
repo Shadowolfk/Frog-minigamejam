@@ -9,7 +9,7 @@ var _current: AudioStream
 
 func _ready() -> void:
 	_player = AudioStreamPlayer.new()
-	_player.bus = "Master"
+	_player.bus = "Music"
 	_player.volume_db = volume_db
 	add_child(_player)
 

@@ -1,7 +1,7 @@
 extends Node2D
 
 
-enum Type { STATIC, LINEAR, ORBITAL }
+enum Type { STATIC, LINEAR, ORBITAL, FIGURE_EIGHT }
 
 @export var type: Type = Type.STATIC
 @export var obstacle_radius: float = 48.0
@@ -15,6 +15,13 @@ enum Type { STATIC, LINEAR, ORBITAL }
 @export var orbit_radius: float = 120.0
 @export var orbit_speed: float = 0.25    
 @export var orbit_angle_start: float = 0.0
+
+
+@export_group("Figure Eight")
+@export var figure_size: Vector2 = Vector2(140, 80)   
+@export var figure_speed: float = 0.20             
+@export var figure_angle_start: float = 0.0       
+@export var figure_rotation: float = PI / 2         
 
 @export_group("Facing")
 @export var face_movement: bool = true
@@ -40,10 +47,12 @@ func _ready() -> void:
 	set_physics_process(type != Type.STATIC)
 	if type == Type.ORBITAL:
 		position = _origin + Vector2.from_angle(orbit_angle_start) * orbit_radius
+	if type == Type.FIGURE_EIGHT:
+		position = _origin + _figure_eight_at(figure_angle_start)
 	_last_pos = position
 	$AnimatedSprite2D.play("default")
 	_audio = AudioStreamPlayer.new()
-	_audio.bus = "Master"
+	_audio.bus = "SFX"
 	add_child(_audio)
 
 
@@ -58,6 +67,9 @@ func _physics_process(delta: float) -> void:
 		Type.ORBITAL:
 			var angle := orbit_angle_start + _time * orbit_speed * TAU
 			position = _origin + Vector2.from_angle(angle) * orbit_radius
+		Type.FIGURE_EIGHT:
+			var t := figure_angle_start + _time * figure_speed * TAU
+			position = _origin + _figure_eight_at(t)
 
 	if face_movement:
 		var v := position - _last_pos
@@ -74,5 +86,14 @@ func on_hit() -> void:
 	if hit_sound == null: return
 	_audio.stream = hit_sound
 	_audio.volume_db = hit_volume_db
+	_audio.bus = "SFX"
 	_audio.pitch_scale = randf_range(1.0 - hit_pitch_variation, 1.0 + hit_pitch_variation) if hit_pitch_variation > 0.0 else 1.0
 	_audio.play()
+
+
+func _figure_eight_at(t: float) -> Vector2:
+
+	var p := Vector2(sin(t * 2.0) * 0.5, sin(t)) * figure_size
+	if figure_rotation != 0.0:
+		p = p.rotated(figure_rotation)
+	return p

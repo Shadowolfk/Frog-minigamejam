@@ -46,3 +46,4 @@ frame_progress = 0.97986734
 stream = ExtResource("3_q8d8k")
 volume_db = -10.852
 autoplay = true
+bus = &"SFX"

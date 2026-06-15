@@ -21,11 +21,17 @@ var _audio: AudioStreamPlayer
 
 func _ready() -> void:
 	completion_panel.hide()
-	back_button.pressed.connect(func(): select_pressed.emit())
-	select_button.pressed.connect(func(): select_pressed.emit())
-	continue_button.pressed.connect(func(): continue_pressed.emit())
+	back_button.pressed.connect(func():
+		_audio.stop()
+		select_pressed.emit())
+	select_button.pressed.connect(func():
+		_audio.stop()
+		select_pressed.emit())
+	continue_button.pressed.connect(func():
+		_audio.stop()
+		continue_pressed.emit())
 	_audio = AudioStreamPlayer.new()
-	_audio.bus = "Master"
+	_audio.bus = "SFX"
 	add_child(_audio)
 	_audio.finished.connect(_on_jingle_finished)
 
@@ -46,13 +52,6 @@ func show_completion(attempts: int, has_next: bool) -> void:
 		continue_button.text = "Next Level"
 	else:
 		completion_title.text = "All levels cleared!"
-
-	
-	if win_jingle and lock_buttons_during_jingle:
-		_set_panel_buttons_disabled(true)
-	else:
-		_set_panel_buttons_disabled(false)
-
 	completion_panel.show()
 
 	if win_jingle:

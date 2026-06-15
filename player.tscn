@@ -172,6 +172,8 @@ sprite_frames = SubResource("SpriteFrames_1jxqw")
 
 [node name="TongueSound" type="AudioStreamPlayer2D" parent="." unique_id=704651967]
 stream = ExtResource("5_sweqy")
+bus = &"SFX"
 
 [node name="TongueSound2" type="AudioStreamPlayer2D" parent="." unique_id=2146088244]
 stream = ExtResource("6_2hs0m")
+bus = &"SFX"
